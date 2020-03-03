@@ -1,37 +1,18 @@
-import express from "express"
-import DataBase from "./db"
-import cors from "cors"
-import { User } from "./db"
+import authentication from "./authentication"
+import database from "./database"
+import server from "./server"
+import fs from "fs"
 
-async function main() {
-    const db = new DataBase();
-    await db.init();
-    const app = express();
-    app.use(cors())
-    app.get('/users', async (res, req) => {
-        const users = await db.getAllUsers();
-        let response = '';
-        users.forEach((element) => {
-            response += `${element.id}: ${element.user_name} ${element.password}\n`
-        });
-        req.end(response);
-    })
+console.log(__dirname)
 
-    app.post('/register', express.json(), async (req, res)=>{
-        try {
-            const user : User = {
-                user_name: req.body.login,
-                password: req.body.password,
-                email: req.body.email
-            }
-            await db.createUser(user)
-            res.json({"message":"ok"})
-        } catch (error) {
-            res.json({"message":"error"})
-        }
-    })
-
-    app.listen(1337);
-}
-
-main();
+const PORT = process.env.PORT || 5000
+const MONGODBSTRING = "mongodb://juju577:noV123ch@ds233198.mlab.com:33198/heroku_83f1b22l"
+const config = JSON.parse(fs.readFileSync("config.json").toString())
+console.log(new Date());
+const db = new database(MONGODBSTRING);
+db.init().then(() => {
+    const auth = new authentication();
+    auth.init(config.secret);
+    const ser = new server(db, auth);
+    ser.init(PORT);
+});

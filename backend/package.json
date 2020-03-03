@@ -11,9 +11,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/express-jwt": "^0.0.42",
+    "@types/jsonwebtoken": "^8.3.8",
+    "@types/mongoose": "^5.7.3",
     "@types/mysql": "^2.15.9",
+    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "express-jwt": "^5.3.1",
+    "express-ws": "^4.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.15",
+    "mongoose": "^5.7.3",
     "mysql": "^2.18.1",
     "promise-mysql": "^4.1.3"
   },
