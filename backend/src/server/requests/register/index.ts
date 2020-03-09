@@ -12,7 +12,7 @@ class register extends request {
         this.auth = lib.auth;
         this.post = {
             auth: false,
-            middleware: bodyParser.json(),
+            middleware: [bodyParser.json()],
             path: "/register",
             function: (req, res) => {
                 const user = new User(req.body);

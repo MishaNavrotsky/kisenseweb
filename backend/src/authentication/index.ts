@@ -4,15 +4,11 @@ import jwt from "jsonwebtoken"
 class authetication {
     secret = null;
     expressModule = null;
-    constructor() {
-        console.log("Authetication init!............");
-    }
 
     init(secret) {
         this.secret = secret;
         this.expressModule = expressJwt({
             secret: secret,
-            expiresIn: "2",
             getToken: (req) => {
                 const cookies = req.headers.cookie ? req.headers.cookie.split(";") : [];
                 for(let i of cookies){
@@ -40,7 +36,7 @@ class authetication {
 
     generateToken(user) {
         const token = jwt.sign(user, this.secret, {
-            expiresIn: 60 * 2
+            expiresIn: "2d"
         });
         return token;
     }

@@ -33,7 +33,7 @@ class database {
     }
 
     getUsers() {
-        return User.find();
+        return User.find().select({username:1, _id:0}).$where("username");
     }
 
     checkUser(user) {

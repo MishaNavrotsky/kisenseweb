@@ -1,0 +1,35 @@
+import React from "react"
+import { AppBar, Button, Toolbar } from "@material-ui/core"
+import { withRouter } from 'react-router-dom';
+
+class AppHeader extends React.Component {
+    handleLogin = ()=>{
+        this.props.history.push("/login")
+    }
+    handleRegister = ()=>{
+        this.props.history.push("/register")
+    }
+    handleUsers = ()=>{
+        this.props.history.push("/users")
+
+    }
+    handleIndex = ()=>{
+        this.props.history.push("/")
+    }
+
+    render() {
+        console.log(this.props)
+        return (
+            <AppBar position="sticky">
+                <Toolbar>
+                    <Button onClick={this.handleLogin}>Login</Button>
+                    <Button onClick={this.handleRegister}>Register</Button>
+                    <Button onClick={this.handleUsers}>Users</Button>
+                    <Button onClick={this.handleIndex}>Index</Button>                    
+                </Toolbar>
+           </AppBar>
+        )
+    }
+}
+
+export default withRouter(AppHeader);

@@ -8,7 +8,6 @@ class users extends request {
             auth: true,
             path: "/users",
             function: async (req : any, res) => {
-                console.log(req.user)
                 res.json(await db.getUsers()).end();
             }
         };

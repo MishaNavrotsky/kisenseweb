@@ -1,16 +1,27 @@
 import React from "react"
 import { Input, Typography, Button } from "@material-ui/core"
 import { createUser } from "../api/index"
-
-export default class Register extends React.Component {
-    async handleSend(){
+import { withSnackbar } from "notistack"
+class Register extends React.Component {
+    handleSend = async ()=>{
         const requestBody = { 
-            login: document.getElementById("login").value,
+            username: document.getElementById("login").value,
             password: document.getElementById("password").value,
             email: document.getElementById("email").value
         }
-        await createUser(JSON.stringify(requestBody))
+        const res = await createUser(JSON.stringify(requestBody))
+        console.log(res);
+        if(res.status === 'ok') {
+            this.props.enqueueSnackbar("Registered", { 
+                variant: 'success',
+            });
+        } else {
+            this.props.enqueueSnackbar(res.messages.map(str=>str[str.length-1]==='.' ? str : str + ".").join(' '), { 
+                variant: 'error',
+            });
+        }
     }
+
     render(){
         return(
             <div>
@@ -25,3 +36,5 @@ export default class Register extends React.Component {
         )
     }
 }
+
+export default withSnackbar(Register)

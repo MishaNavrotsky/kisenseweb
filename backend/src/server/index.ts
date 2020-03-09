@@ -24,7 +24,8 @@ class server {
             }));
         this.requests = new requests({
             db: this.db,
-            auth: this.auth
+            auth: this.auth,
+            express: this.app
         });
         this.wsrequests = new wsrequests({
             db: this.db
@@ -35,25 +36,15 @@ class server {
 
     init(port) {
         console.log("Server init!............");
-        //check all requests for using auth 
-        console.log("Server auth init........")
-        let notAuthArr = [];
-        for (const request of this.requests) {
-            notAuthArr.push(request.notAuthPathes);
-        }
-        notAuthArr = _.flattenDeep(notAuthArr);
-        this.app.use(this.auth.expressModule.unless({
-            path: notAuthArr
-        }));
-        //auth error handler
-        this.app.use(this.auth.errorHandler);
         //init ws routes
         console.log("WS init...........");
         this.wsrequests.init(this.app, "/websocket");
 
         //init express routes
         console.log("Requests init.........");
-        this.requests.init(this.app);
+        this.requests.init();
+
+        this.app.use(this.auth.errorHandler);
         this.app.listen(port);
     }
 }

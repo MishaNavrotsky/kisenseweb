@@ -12,7 +12,7 @@ class login extends request {
         this.auth = lib.auth;
         this.post = {
             auth:false,
-            middleware: bodyParser.json(),
+            middleware: [bodyParser.json()],
             path: "/login",
             function: (req, res) => {
                 const user = new User(req.body);
