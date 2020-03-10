@@ -30,3 +30,15 @@ export async function login(body){
     });
     return await response.json();
 }
+
+export async function someData(){
+    const response = await fetch("http://localhost:5000/", {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+        },
+    });
+    return await response.json();
+}

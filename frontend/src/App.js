@@ -28,7 +28,7 @@ class App extends React.Component {
               <Route path="/register" exact component={Register} />
               <Route path="/login" exact component={Login} />
               <Route path='/*' >
-                Loh
+                Loh loh loh
               </Route>
             </Switch>
           </BrowserRouter>
