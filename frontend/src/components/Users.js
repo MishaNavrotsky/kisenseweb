@@ -1,8 +1,7 @@
 import React from "react";
-import { Paper, Button, Typography, Grid } from "@material-ui/core";
-import { BatteryLoading } from "react-loadingg";
+import { Typography, Grid } from "@material-ui/core";
 import { withSnackbar } from "notistack";
-
+import Loading from "./Loading";
 class Test extends React.Component {
   state = {
     data: [],
@@ -16,7 +15,7 @@ class Test extends React.Component {
     return (
       <div>
         {this.state.loading ? (
-          <BatteryLoading></BatteryLoading>
+          <Loading />
         ) : (
           <Grid container justify="center">
             <Typography>123</Typography>

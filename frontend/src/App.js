@@ -5,13 +5,24 @@ import Login from "./components/Login";
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 import Header from "./components/Header";
 import { SnackbarProvider } from "notistack";
-import { withStyles } from "@material-ui/core";
+import { withStyles, ThemeProvider, createMuiTheme } from "@material-ui/core";
 import { connect } from "react-redux";
 import { actionLogin } from "./actions";
 import { getUserByToken } from "./api";
+import { blue } from "@material-ui/core/colors/";
+
+const theme = createMuiTheme({
+  palette: {
+    primary: blue
+  }
+});
 
 const styles = () => {
-  return {};
+  return {
+    app: {
+      margin: 8
+    }
+  };
 };
 
 class App extends React.Component {
@@ -20,27 +31,28 @@ class App extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
     return (
-      <div>
-        <SnackbarProvider maxSnack={3} dense preventDuplicate>
-          <BrowserRouter>
-            <Header user={this.props.user} />
-            <Switch>
-              <Route path="/users" exact>
-                <Users {...this.props}></Users>
-              </Route>
-              <Route path="/register" exact>
-                <Register {...this.props}></Register>
-              </Route>
-              <Route path="/login" exact>
-                <Login {...this.props}></Login>
-              </Route>
-              <Route path="/*">Loh loh loh</Route>
-            </Switch>
-          </BrowserRouter>
-        </SnackbarProvider>
-      </div>
+      <ThemeProvider theme={theme}>
+        <div>
+          <SnackbarProvider maxSnack={3} dense preventDuplicate>
+            <BrowserRouter>
+              <Header user={this.props.user} />
+              <Switch>
+                <Route path="/users" exact>
+                  <Users></Users>
+                </Route>
+                <Route path="/register" exact>
+                  <Register setUser={this.props.setUser}></Register>
+                </Route>
+                <Route path="/login" exact>
+                  <Login setUser={this.props.setUser}></Login>
+                </Route>
+                <Route path="/*">Loh loh loh</Route>
+              </Switch>
+            </BrowserRouter>
+          </SnackbarProvider>
+        </div>
+      </ThemeProvider>
     );
   }
 }

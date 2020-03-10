@@ -1,17 +1,58 @@
 import React from "react";
-import { Input, Typography, Button } from "@material-ui/core";
+import {
+  Input,
+  Typography,
+  Button,
+  withStyles,
+  Paper
+} from "@material-ui/core";
 import { createUser } from "../api/index";
 import { withSnackbar } from "notistack";
 import { withRouter } from "react-router-dom";
+import Loading from "./Loading";
 
+const classes = theme => ({
+  register: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    minHeight: "calc(100vh - 64px)"
+  },
+  row: {
+    marginTop: 16
+  }
+});
 class Register extends React.Component {
+  state = {
+    loading: false
+  };
+  onKeyDown = event => {
+    // 'keypress' event misbehaves on mobile so we track 'Enter' key via 'keydown' event
+    if (event.key === "Enter") {
+      event.preventDefault();
+      event.stopPropagation();
+      this.handleSend();
+    }
+  };
+
+  componentDidMount() {
+    document.addEventListener("keydown", this.onKeyDown);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.onKeyDown);
+  }
+
   handleSend = async () => {
     const requestBody = {
-      name: document.getElementById("login").value,
-      password: document.getElementById("password").value,
-      email: document.getElementById("email").value
+      name: document.getElementById("login")?.value,
+      password: document.getElementById("password")?.value,
+      email: document.getElementById("email")?.value
     };
+    this.setState({ loading: true });
     const res = await createUser(JSON.stringify(requestBody));
+    this.setState({ loading: false });
     if (res.status === "ok") {
       this.props.enqueueSnackbar("Registered", {
         variant: "success"
@@ -32,18 +73,36 @@ class Register extends React.Component {
   };
 
   render() {
+    if (this.state.loading) return <Loading></Loading>;
     return (
-      <div>
-        <Typography>Login:</Typography>
-        <Input type="login" id="login"></Input>
-        <Typography>Password:</Typography>
-        <Input type="password" id="password"></Input>
-        <Typography>Email:</Typography>
-        <Input type="email" id="email"></Input>
-        <Button onClick={this.handleSend}>Send</Button>
+      <div className={this.props.classes.register}>
+        <Paper style={{ padding: 40 }} elevation={2}>
+          <div>
+            <Typography>Login:</Typography>
+            <Input type="login" id="login"></Input>
+          </div>
+          <div className={this.props.classes.row}>
+            <Typography>Password:</Typography>
+            <Input type="password" id="password"></Input>
+          </div>
+          <div className={this.props.classes.row}>
+            <Typography>Email:</Typography>
+            <Input type="email" id="email"></Input>
+          </div>
+          <Button
+            onKeyDown={this.onKeyDown}
+            variant="contained"
+            onClick={this.handleSend}
+            style={{ width: 195, marginTop: 16 }}
+            color="primary"
+            type="submit"
+          >
+            Send
+          </Button>
+        </Paper>
       </div>
     );
   }
 }
 
-export default withRouter(withSnackbar(Register));
+export default withStyles(classes)(withRouter(withSnackbar(Register)));

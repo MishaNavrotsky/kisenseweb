@@ -1,20 +1,58 @@
 import React from "react";
-import { Input, Typography, Button } from "@material-ui/core";
+import {
+  Input,
+  Typography,
+  Button,
+  withStyles,
+  Paper
+} from "@material-ui/core";
 import { login } from "../api/index";
 import { withSnackbar } from "notistack";
 import { withRouter } from "react-router-dom";
+import Loading from "./Loading";
 
+const classes = theme => ({
+  login: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    minHeight: "calc(100vh - 64px)"
+  },
+  row: {
+    marginTop: 16
+  }
+});
 class Login extends React.Component {
   state = {
-    loginStatus: "Waiting for login..."
+    loading: false
   };
+
+  onKeyDown = event => {
+    // 'keypress' event misbehaves on mobile so we track 'Enter' key via 'keydown' event
+    if (event.key === "Enter") {
+      event.preventDefault();
+      event.stopPropagation();
+      this.handleSend();
+    }
+  };
+
+  componentDidMount() {
+    document.addEventListener("keydown", this.onKeyDown);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.onKeyDown);
+  }
 
   handleSend = async () => {
     const requestBody = {
-      name: document.getElementById("login").value,
-      password: document.getElementById("password").value
+      name: document.getElementById("login")?.value,
+      password: document.getElementById("password")?.value
     };
+    this.setState({ loading: true });
     const res = await login(JSON.stringify(requestBody));
+    this.setState({ loading: false });
     if (res.status === "ok") {
       this.props.enqueueSnackbar("Logged in", {
         variant: "success"
@@ -28,17 +66,33 @@ class Login extends React.Component {
     }
   };
   render() {
-    console.log(this.props);
+    if (this.state.loading) {
+      return <Loading></Loading>;
+    }
     return (
-      <div>
-        <Typography>Login:</Typography>
-        <Input type="login" id="login"></Input>
-        <Typography>Password:</Typography>
-        <Input type="password" id="password"></Input>
-        <Button onClick={this.handleSend}>Send</Button>
+      <div className={this.props.classes.login}>
+        <Paper style={{ padding: 40 }} elevation={2}>
+          <div>
+            <Typography>Login:</Typography>
+            <Input type="login" id="login"></Input>
+          </div>
+          <div className={this.props.classes.row}>
+            <Typography>Password:</Typography>
+            <Input type="password" id="password"></Input>
+          </div>
+          <Button
+            variant="contained"
+            onClick={this.handleSend}
+            style={{ width: 195, marginTop: 16 }}
+            color="primary"
+            type="submit"
+          >
+            Send
+          </Button>
+        </Paper>
       </div>
     );
   }
 }
 
-export default withRouter(withSnackbar(Login));
+export default withStyles(classes)(withRouter(withSnackbar(Login)));
