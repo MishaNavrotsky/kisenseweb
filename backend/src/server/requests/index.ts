@@ -4,6 +4,7 @@ import register from "./register"
 import def from "./default"
 import users from "./users"
 import database from "../../database"
+import getUserByToken from "./getUserByToken"
 import _ from "lodash"
 
 class requests extends Array {
@@ -13,7 +14,7 @@ class requests extends Array {
     super();
     this.auth = obj.auth;
     this.express = obj.express;
-    this.push(new login(obj), new index(), new register(obj), new users(obj));
+    this.push(new login(obj), new index(), new register(obj), new users(obj), new getUserByToken());
     this.push(new def());
   }
 

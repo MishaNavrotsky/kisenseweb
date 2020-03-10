@@ -23,6 +23,7 @@ class server {
         },
         credentials: true
       }));
+    this.app.use(this.auth.tokenToUserReqHandler);
     this.requests = new requests({
       db: this.db,
       auth: this.auth,

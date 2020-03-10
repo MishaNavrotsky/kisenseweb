@@ -11,8 +11,8 @@ const config = JSON.parse(fs.readFileSync("config.json").toString())
 console.log(new Date());
 const db = new database(MONGODBSTRING);
 db.init().then(() => {
-    const auth = new authentication();
-    auth.init(config.secret);
-    const ser = new server(db, auth);
-    ser.init(PORT);
+  const auth = new authentication();
+  auth.init(config.secret);
+  const ser = new server(db, auth);
+  ser.init(PORT);
 });

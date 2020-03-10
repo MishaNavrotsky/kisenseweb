@@ -2,10 +2,12 @@ import React from "react";
 import { Input, Typography, Button } from "@material-ui/core";
 import { createUser } from "../api/index";
 import { withSnackbar } from "notistack";
+import { withRouter } from "react-router-dom";
+
 class Register extends React.Component {
   handleSend = async () => {
     const requestBody = {
-      username: document.getElementById("login").value,
+      name: document.getElementById("login").value,
       password: document.getElementById("password").value,
       email: document.getElementById("email").value
     };
@@ -14,6 +16,9 @@ class Register extends React.Component {
       this.props.enqueueSnackbar("Registered", {
         variant: "success"
       });
+      console.log(res);
+      this.props.setUser(res.user);
+      this.props.history.push("/");
     } else {
       this.props.enqueueSnackbar(
         res.messages
@@ -41,4 +46,4 @@ class Register extends React.Component {
   }
 }
 
-export default withSnackbar(Register);
+export default withRouter(withSnackbar(Register));

@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import mainReducer from "./mainReducer";
+import api from "./api";
 
 export default combineReducers({
-  mainReducer
+  api
 });

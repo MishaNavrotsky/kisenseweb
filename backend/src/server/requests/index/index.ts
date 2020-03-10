@@ -8,11 +8,9 @@ class index extends request {
     this.get = {
       auth: false,
       path: "/",
-      function: (req, res) => {
-        setTimeout(() => {
-          res.json({ data: req.headers.cookie });
-          res.end();
-        }, 5000);
+      function: (req: any, res) => {
+        console.log(req.user);
+        res.send({ ok: true })
       }
     };
   }

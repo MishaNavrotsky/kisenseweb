@@ -1,5 +1,5 @@
 import React from "react";
-import { AppBar, Button, Toolbar } from "@material-ui/core";
+import { AppBar, Button, Toolbar, Typography } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
 
 class AppHeader extends React.Component {
@@ -24,6 +24,7 @@ class AppHeader extends React.Component {
           <Button onClick={this.handleRegister}>Register</Button>
           <Button onClick={this.handleUsers}>Users</Button>
           <Button onClick={this.handleIndex}>Index</Button>
+          <Typography>{this.props.user?.name}</Typography>
         </Toolbar>
       </AppBar>
     );
