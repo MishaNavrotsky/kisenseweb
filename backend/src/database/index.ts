@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import User from "./schemas/user"
+import User, { IUser } from "./schemas/user"
 class database {
   connectionString = null;
   db: mongoose.Mongoose = null;

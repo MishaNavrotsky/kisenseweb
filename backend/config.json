@@ -1,3 +1,4 @@
 {
-    "secret": "somesecrethere"
+  "dbConnectionString": "mongodb+srv://juju577:noV123ch@cluster0-cmxb3.gcp.mongodb.net/test?retryWrites=true&w=majority",
+  "secret": "somesecrethere"
 }
