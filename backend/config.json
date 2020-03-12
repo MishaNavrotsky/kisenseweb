@@ -1,5 +1,7 @@
 {
   "oldDbConnectionString": "mongodb+srv://juju577:noV123ch@cluster0-cmxb3.gcp.mongodb.net/?retryWrites=true&w=majority",
   "dbConnectionString": "mongodb://juju577:noV123ch@ds233198.mlab.com:33198/heroku_83f1b22l",
-  "secret": "somesecrethere"
+  "secret": "somesecrethere",
+  "passwordKey": "Xp2s5u8x/A?D(G+KbPeShVmYq3t6w9y$",
+  "passwordICV": "lolkekcheburek"
 }

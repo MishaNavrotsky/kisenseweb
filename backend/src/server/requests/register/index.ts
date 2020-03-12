@@ -11,20 +11,20 @@ class register extends request {
       auth: false,
       middleware: [bodyParser.json()],
       path: "/register",
-      function: (req, res) => {
-        const user = new User(req.body);
+      function: async (req, res) => {
+        const user = { ...req.body, password: await auth.cryptPassword(req.body.password) };
         db.saveUser(user).then(result => {
           const token = auth.generateToken({
-            name: user.name,
-            role: user.role || "user",
-            id: user.id
+            name: result.name,
+            role: result.role,
+            id: result.id
           });
           res.cookie('token', token, { httpOnly: true }).send({
             status: "ok",
             user: {
-              id: user.id,
-              name: user.name,
-              role: user.role || "user",
+              id: result.id,
+              name: result.name,
+              role: result.role,
               token
             }
             // token: token

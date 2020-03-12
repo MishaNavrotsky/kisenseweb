@@ -63,8 +63,8 @@ class Register extends React.Component {
     } else {
       this.props.enqueueSnackbar(
         res.messages
-          .map(str => (str[str.length - 1] === "." ? str : str + "."))
-          .join(" "),
+          ?.map(str => (str[str.length - 1] === "." ? str : str + "."))
+          .join(" ") || res.status,
         {
           variant: "error"
         }

@@ -25,13 +25,7 @@ class database {
   }
 
   saveUser(user) {
-    if (user.constructor.modelName !== "User") {
-      throw "createUser object is not type of User";
-    }
-    return user.save().catch(error => {
-      console.log(error.message);
-      throw error;
-    });
+    return new User(user).save();
   }
 
   getUsers(limit, skip) {
@@ -39,10 +33,7 @@ class database {
   }
 
   checkUser(user) {
-    return User.findOne({
-      name: user.name,
-      password: user.password
-    });
+    return User.findOne(user);
   }
 }
 

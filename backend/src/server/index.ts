@@ -24,6 +24,7 @@ class server {
   }
 
   errorHandler(err, req, res, next) {
+    console.log(err);
     if (err) {
       res.json({ status: "error", message: err.message }).status(500).end()
     }

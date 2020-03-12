@@ -2,6 +2,8 @@ import config from "../config"
 import expressJwt from "express-jwt"
 import jwt from "jsonwebtoken"
 import User, { IUser } from "../database/schemas/user"
+import crypto from "crypto"
+import { rejects } from "assert"
 
 class authetication {
   static secret = config.secret;
@@ -57,6 +59,11 @@ class authetication {
     if (!token) return;
     const user = new User(jwt.verify(token, config.secret));
     return user;
+  }
+
+  static async cryptPassword(password: string): Promise<string> {
+    const cipher = crypto.createCipheriv('aes-256-gcm', config.passwordKey, config.passwordICV);
+    return cipher.update(password, 'utf8', 'hex') + cipher.final('hex');
   }
 }
 
