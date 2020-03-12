@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { Roles } from "../../../const"
+import { Roles } from "../../const"
 
 const userScheme = new mongoose.Schema({
   //TODO validator?

@@ -8,7 +8,7 @@
     "outDir": "dist"
   },
   "files": ["declares/index.d.ts", "src/main.ts"],
-  "include": ["./*"],
+  "include": ["./*", "src/const.ts"],
   "exclude": ["node_modules"],
   "lib": ["es2016"]
 }
