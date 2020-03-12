@@ -1,23 +1,20 @@
-import express from "express"
 import request from "../request"
 import bodyParser from 'body-parser'
 import User from "../../../database/schemas/user"
+import db from "../../../database"
+import auth from "../../../authentication"
 
 class login extends request {
-  db = null;
-  auth = null;
-  constructor(lib) {
+  constructor() {
     super();
-    this.db = lib.db;
-    this.auth = lib.auth;
     this.post = {
       auth: false,
       middleware: [bodyParser.json()],
       path: "/login",
       function: (req, res) => {
         const user = new User(req.body);
-        this.db.checkUser(user).then(result => {
-          const token = this.auth.generateToken({
+        db.checkUser(user).then(result => {
+          const token = auth.generateToken({
             name: user.name,
             role: user.role || "user",
             id: user.id
@@ -44,4 +41,4 @@ class login extends request {
     }
   }
 }
-export default login;
+export default new login();

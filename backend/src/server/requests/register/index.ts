@@ -1,15 +1,12 @@
-import express from "express"
 import request from "../request"
 import bodyParser from 'body-parser'
 import User from "../../../database/schemas/user"
+import auth from "../../../authentication"
+import db from "../../../database"
 
 class register extends request {
-  db = null;
-  auth = null;
-  constructor(lib) {
+  constructor() {
     super();
-    this.db = lib.db;
-    this.auth = lib.auth;
     this.post = {
       auth: false,
       middleware: [bodyParser.json()],
@@ -17,8 +14,8 @@ class register extends request {
       function: (req, res) => {
         console.log(req.body)
         const user = new User(req.body);
-        this.db.saveUser(user).then(result => {
-          const token = this.auth.generateToken({
+        db.saveUser(user).then(result => {
+          const token = auth.generateToken({
             name: user.name,
             role: user.role || "user",
             id: user.id
@@ -32,8 +29,7 @@ class register extends request {
               token
             }
             // token: token
-          })
-          res.end();
+          }).end();
         }).catch(err => {
           let messages = [];
           for (const i in err.errors) {
@@ -45,11 +41,10 @@ class register extends request {
             status: "error",
             message: "validation error",
             messages: messages
-          })
-          res.end();
+          }).end();
         })
       }
     }
   }
 }
-export default register;
+export default new register();

@@ -1,7 +1,6 @@
 import _ from "lodash"
 import express, { RequestHandler } from "express"
 import { PathParams } from "express-serve-static-core"
-express().get("wer", () => { })
 
 interface getRequest {
   auth: boolean,
@@ -45,6 +44,10 @@ class request {
     }
     return arr;
 
+  }
+
+  init(requests: Array<any>) {
+    requests.push(this);
   }
 
   toObject() {

@@ -1,12 +1,12 @@
+import config from "../config"
 import mongoose from "mongoose"
 import User, { IUser } from "./schemas/user"
 class database {
-  connectionString = null;
+  connectionString: string = null;
   db: mongoose.Mongoose = null;
-  constructor(connectionString) {
+  constructor() {
     console.log("Database init!............");
-    this.connectionString = connectionString;
-
+    this.connectionString = config.dbConnectionString; //"mongodb://juju577:noV123ch@ds233198.mlab.com:33198/heroku_83f1b22l"
   }
 
   async init() {
@@ -46,4 +46,5 @@ class database {
   }
 }
 
-export default database;
+const db = new database();
+export default db;

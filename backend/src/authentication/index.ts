@@ -1,21 +1,19 @@
+import config from "../config"
 import expressJwt from "express-jwt"
 import jwt from "jsonwebtoken"
+import User, { IUser } from "../database/schemas/user"
 
 class authetication {
-  secret = null;
-  expressModule = null;
+  static secret = config.secret;
+  static appModule = expressJwt({
+    secret: config.secret,
+    getToken: (req) => {
+      return authetication.tokenFromCookies(req.headers.cookie);
+    },
 
-  init(secret) {
-    this.secret = secret;
-    this.expressModule = expressJwt({
-      secret: secret,
-      getToken: (req) => {
-        return this.tokenFromCookies(req.headers.cookie);
-      }
-    });
-  }
+  });
 
-  private tokenFromCookies(cookies: string) {
+  private static tokenFromCookies(cookies: string) {
     cookies = cookies || "";
     const array = cookies.split(";");
     for (let i of array) {
@@ -26,7 +24,7 @@ class authetication {
     return null;
   }
 
-  errorHandler(err, req, res, next) {
+  static errorHandler(err, req, res, next) {
     if (err.name === "UnauthorizedError") {
       res.status(err.status).send({
         status: "error",
@@ -39,23 +37,25 @@ class authetication {
     }
   }
 
-  tokenToUserReqHandler = (req, res, next) => {
-    req.user = this.verifyToken(this.tokenFromCookies(req.headers.cookie));
+  static userToIUserHandler(req, res, next) {
+    req.tokenUser = req.user;
+    req.user = new User(req.user);
+    req.user._id = req.tokenUser.id
     next();
   }
 
-  generateToken({ name, id, role }) {
+  static generateToken({ name, id, role }) {
     const token = jwt.sign({
       name, id, role
-    }, this.secret, {
+    }, config.secret, {
       expiresIn: "2d"
     });
     return token;
   }
 
-  verifyToken(token) {
+  static verifyToken(token): IUser {
     if (!token) return;
-    const user = jwt.verify(token, this.secret);
+    const user = new User(jwt.verify(token, config.secret));
     return user;
   }
 }

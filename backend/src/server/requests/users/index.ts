@@ -1,18 +1,18 @@
 import express from "express"
 import request from "../request"
-import database from "../../../database"
+import db from "../../../database"
 
 class users extends request {
-  constructor({ db }) {
+  constructor() {
     super();
     this.get = {
       auth: true,
       path: "/users",
-      function: async (req: any, res) => {
-        res.json(await (db as database).getUsers()).end();
+      function: async (req, res) => {
+        res.json(await db.getUsers()).end();
       }
     };
   }
 }
 
-export default users;
+export default new users();

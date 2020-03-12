@@ -1,44 +1,35 @@
-import login from "./login"
-import index from "./index/index"
-import register from "./register"
-import def from "./default"
-import users from "./users"
-import database from "../../database"
-import getUserByToken from "./getUserByToken"
+import auth from "../../authentication"
+import request from "./request"
+import express from "express"
 import _ from "lodash"
-
 class requests extends Array {
-  auth = null;
-  express = null;
-  constructor(obj: { db: database, auth, express }) {
+  app: express.Application = null;
+  constructor(app: express.Application) {
     super();
-    this.auth = obj.auth;
-    this.express = obj.express;
-    this.push(new login(obj), new index(), new register(obj), new users(obj), new getUserByToken());
-    this.push(new def());
+    this.app = app;
   }
 
-  init() {
-    for (const request of this) {
-      const disp = {
-        ...request
-      }
-      console.log(`${request.constructor.name}: { ${disp.get ? "get: " + disp.get.path + " " : ""}${disp.post ? "post: " + disp.post.path : ""}, authGet:${disp.get?.auth}, authPost:${disp.post?.auth} }`);
-      if (request.get) {
-        const authMiddleware = request.get.auth ? this.auth.expressModule : (err, req, res, next) => { next() };
-        if (!_.isEmpty(request.get.middleware))
-          this.express.get(request.get.path, request.get.middleware, authMiddleware, request.get.function);
-        else
-          this.express.get(request.get.path, authMiddleware, request.get.function);
-      }
-      if (request.post) {
-        const authMiddleware = request.post.auth ? this.auth.expressModule : (err, req, res, next) => { next() };
-        if (!_.isEmpty(request.post.middleware))
-          this.express.post(request.post.path, request.post.middleware, authMiddleware, request.post.function);
-        else
-          this.express.post(request.post.path, authMiddleware, request.post.function);
-      }
+  push(request: request): number {
+    const disp = {
+      ...request
     }
+
+    console.log(`${request.constructor.name}: { ${disp.get ? "get: " + disp.get.path + " " : ""}${disp.post ? "post: " + disp.post.path : ""}, authGet:${disp.get?.auth}, authPost:${disp.post?.auth} }`);
+    if (request.get) {
+      const authMiddleware = request.get.auth ? auth.appModule : (err, req, res, next) => { next() };
+      if (!_.isEmpty(request.get.middleware))
+        this.app.get(request.get.path, request.get.middleware, authMiddleware, auth.userToIUserHandler, request.get.function);
+      else
+        this.app.get(request.get.path, authMiddleware, auth.userToIUserHandler, request.get.function);
+    }
+    if (request.post) {
+      const authMiddleware = request.post.auth ? auth.appModule : (err, req, res, next) => { next() };
+      if (!_.isEmpty(request.post.middleware))
+        this.app.post(request.post.path, request.post.middleware, authMiddleware, auth.userToIUserHandler, request.post.function);
+      else
+        this.app.post(request.post.path, authMiddleware, auth.userToIUserHandler, request.post.function);
+    }
+    return super.push(request)
   }
 }
 

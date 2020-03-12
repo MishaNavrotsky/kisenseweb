@@ -1,20 +1,18 @@
-import express from 'express'
+import express, { request } from 'express'
 import requests from './requests'
 import wsrequests from './wsrequests'
-import database from "../database"
+import auth from "../authentication"
 import cors from "cors"
+import { initRoutes } from "./requests/routes"
 
 import _ from "lodash"
 
+
 class server {
-  db: database = null;
-  auth = null;
-  app = null;
-  requests = null;
-  wsrequests = null;
-  constructor(db = {} as database, auth = {}) {
-    this.db = db;
-    this.auth = auth;
+  app = express();
+  requests: requests = null;
+  wsrequests: wsrequests = null;
+  constructor() {
     this.app = express();
     this.app
       .use(cors({
@@ -23,30 +21,13 @@ class server {
         },
         credentials: true
       }));
-    this.app.use(this.auth.tokenToUserReqHandler);
-    this.requests = new requests({
-      db: this.db,
-      auth: this.auth,
-      express: this.app
-    });
-    this.wsrequests = new wsrequests({
-      db: this.db
-    });
+    this.requests = new requests(this.app);
+    initRoutes(this.requests)
+    // this.wsrequests = new wsrequests();
   }
 
-
-
   init(port) {
-    console.log("Server init!............");
-    //init ws routes
-    console.log("WS init...........");
-    this.wsrequests.init(this.app, "/websocket");
-
-    //init express routes
-    console.log("Requests init.........");
-    this.requests.init();
-
-    this.app.use(this.auth.errorHandler);
+    this.app.use(auth.errorHandler);
     this.app.listen(port);
   }
 }
