@@ -23,8 +23,15 @@ class server {
     initRoutes(this.requests)
   }
 
+  errorHandler(err, req, res, next) {
+    if (err) {
+      res.json({ status: "error", message: err.message }).status(500).end()
+    }
+  }
+
   init(port) {
     this.app.use(auth.errorHandler);
+    this.app.use(this.errorHandler);
     this.app.listen(port);
   }
 }

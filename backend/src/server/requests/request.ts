@@ -1,5 +1,5 @@
 import _ from "lodash"
-import express, { RequestHandler } from "express"
+import { RequestHandler } from "express"
 import { PathParams } from "express-serve-static-core"
 
 interface getRequest {

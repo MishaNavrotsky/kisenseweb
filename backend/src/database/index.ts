@@ -34,8 +34,8 @@ class database {
     });
   }
 
-  getUsers() {
-    return User.find();
+  getUsers(limit, skip) {
+    return User.find().limit(limit).skip(skip);
   }
 
   checkUser(user) {

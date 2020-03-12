@@ -1,7 +1,7 @@
 export const URL_API = "http://localhost:5000";
 
 export async function getUsers() {
-  const response = await fetch(URL_API + "/users", {
+  const response = await fetch(URL_API + "/users/" + window.location.search, {
     credentials: "include"
   });
   return await response.json();

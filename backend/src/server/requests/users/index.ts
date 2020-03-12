@@ -1,4 +1,3 @@
-import express from "express"
 import request from "../request"
 import db from "../../../database"
 
@@ -9,7 +8,9 @@ class users extends request {
       auth: true,
       path: "/users",
       function: async (req, res) => {
-        res.json(await db.getUsers()).end();
+        const limit = Number(req.query.limit) || 10;
+        const skip = Number(req.query.skip) || 0;
+        res.json(await db.getUsers(limit, skip)).end();
       }
     };
   }

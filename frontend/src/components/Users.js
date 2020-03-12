@@ -10,7 +10,13 @@ class Test extends React.Component {
   };
 
   async componentDidMount() {
-    this.setState({ loading: false, loadData: await getUsers() });
+    const res = await getUsers();
+    if (res.status === "error") {
+      this.setState({ loading: false });
+      this.props.enqueueSnackbar("loading error", { variant: "error" });
+    } else {
+      this.setState({ loading: false, loadData: await getUsers() });
+    }
   }
 
   render() {
@@ -20,8 +26,8 @@ class Test extends React.Component {
           <Loading />
         ) : (
           <Grid container justify="center">
-            {this.state.loadData.map(json => (
-              <Typography>{JSON.stringify(json)}</Typography>
+            {this.state.loadData?.map((json, id) => (
+              <Typography key={id}>{JSON.stringify(json)}</Typography>
             ))}
           </Grid>
         )}

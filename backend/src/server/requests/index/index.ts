@@ -8,7 +8,6 @@ class index extends request {
       auth: false,
       path: "/",
       function: (req, res) => {
-        console.log(req.user);
         res.send({ ok: true })
       }
     };
