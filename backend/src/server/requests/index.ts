@@ -16,18 +16,18 @@ class requests extends Array {
 
     console.log(`${request.constructor.name}: { ${disp.get ? "get: " + disp.get.path + " " : ""}${disp.post ? "post: " + disp.post.path : ""}, authGet:${disp.get?.auth}, authPost:${disp.post?.auth} }`);
     if (request.get) {
-      const authMiddleware = request.get.auth ? auth.appModule : (err, req, res, next) => { next() };
+      const authMiddleware = request.get.auth ? [auth.appModule, auth.userToIUserHandler] : (err, req, res, next) => { next() };
       if (!_.isEmpty(request.get.middleware))
-        this.app.get(request.get.path, request.get.middleware, authMiddleware, auth.userToIUserHandler, request.get.function);
+        this.app.get(request.get.path, request.get.middleware, authMiddleware, request.get.function);
       else
-        this.app.get(request.get.path, authMiddleware, auth.userToIUserHandler, request.get.function);
+        this.app.get(request.get.path, authMiddleware, request.get.function);
     }
     if (request.post) {
-      const authMiddleware = request.post.auth ? auth.appModule : (err, req, res, next) => { next() };
+      const authMiddleware = request.post.auth ? [auth.appModule, auth.userToIUserHandler] : (err, req, res, next) => { next() };
       if (!_.isEmpty(request.post.middleware))
-        this.app.post(request.post.path, request.post.middleware, authMiddleware, auth.userToIUserHandler, request.post.function);
+        this.app.post(request.post.path, request.post.middleware, authMiddleware, request.post.function);
       else
-        this.app.post(request.post.path, authMiddleware, auth.userToIUserHandler, request.post.function);
+        this.app.post(request.post.path, authMiddleware, request.post.function);
     }
     return super.push(request)
   }

@@ -12,7 +12,6 @@ class register extends request {
       middleware: [bodyParser.json()],
       path: "/register",
       function: (req, res) => {
-        console.log(req.body)
         const user = new User(req.body);
         db.saveUser(user).then(result => {
           const token = auth.generateToken({

@@ -2,14 +2,16 @@ import React from "react";
 import { Typography, Grid } from "@material-ui/core";
 import { withSnackbar } from "notistack";
 import Loading from "./Loading";
+import { getUsers } from "../api";
 class Test extends React.Component {
   state = {
-    data: [],
-    i: 0,
     loading: true,
     loadData: null
   };
-  async componentDidMount() {}
+
+  async componentDidMount() {
+    this.setState({ loading: false, loadData: await getUsers() });
+  }
 
   render() {
     return (
@@ -18,7 +20,9 @@ class Test extends React.Component {
           <Loading />
         ) : (
           <Grid container justify="center">
-            <Typography>123</Typography>
+            {this.state.loadData.map(json => (
+              <Typography>{JSON.stringify(json)}</Typography>
+            ))}
           </Grid>
         )}
       </div>

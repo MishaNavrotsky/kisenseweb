@@ -35,7 +35,7 @@ class database {
   }
 
   getUsers() {
-    return User.find().select({ name: 1, _id: 0 }).$where("name");
+    return User.find();
   }
 
   checkUser(user) {

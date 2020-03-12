@@ -4,7 +4,7 @@ export async function getUsers() {
   const response = await fetch(URL_API + "/users", {
     credentials: "include"
   });
-  return await response.text();
+  return await response.json();
 }
 
 export async function createUser(body) {
