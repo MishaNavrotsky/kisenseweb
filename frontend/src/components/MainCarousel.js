@@ -70,27 +70,6 @@ class MainCarousel extends React.Component {
             src="https://cs9.pikabu.ru/post_img/2017/06/02/6/1496394201180039019.png"
           ></img>
         </div>
-        <div className={classes.slide}>
-          <img
-            alt="err"
-            className={classes.image}
-            src="https://cs9.pikabu.ru/post_img/2017/06/02/6/1496394201180039019.png"
-          ></img>
-        </div>
-        <div className={classes.slide}>
-          <img
-            alt="err"
-            className={classes.image}
-            src="https://cs9.pikabu.ru/post_img/2017/06/02/6/1496394201180039019.png"
-          ></img>
-        </div>
-        <div className={classes.slide}>
-          <img
-            alt="err"
-            className={classes.image}
-            src="https://cs9.pikabu.ru/post_img/2017/06/02/6/1496394201180039019.png"
-          ></img>
-        </div>
       </Carousel>
     );
   }

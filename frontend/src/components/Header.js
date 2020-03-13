@@ -1,7 +1,53 @@
 import React from "react";
-import { AppBar, Button, Toolbar, Typography } from "@material-ui/core";
+import {
+  AppBar,
+  Button,
+  Toolbar,
+  Typography,
+  InputBase,
+  withStyles,
+  fade
+} from "@material-ui/core";
 import { withRouter } from "react-router-dom";
-import { Person } from "@material-ui/icons";
+import { Person, Search } from "@material-ui/icons";
+
+const classes = theme => ({
+  search: {
+    position: "relative",
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    "&:hover": {
+      backgroundColor: fade(theme.palette.common.white, 0.25)
+    },
+    marginRight: theme.spacing(2),
+    marginLeft: 0,
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: theme.spacing(3),
+      width: "auto"
+    }
+  },
+  searchIcon: {
+    width: theme.spacing(7),
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  inputRoot: {
+    color: "inherit"
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 7),
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: 200
+    }
+  }
+});
 class AppHeader extends React.Component {
   static defaultProps = {
     user: {}
@@ -20,6 +66,7 @@ class AppHeader extends React.Component {
   };
 
   render() {
+    const { classes } = this.props;
     return (
       <AppBar position="sticky">
         <Toolbar>
@@ -28,8 +75,27 @@ class AppHeader extends React.Component {
           <Button onClick={this.handleUsers}>Users</Button>
           <Button onClick={this.handleIndex}>Index</Button>
           {this.props.user.name ? (
-            <div style={{ marginLeft: "auto", display: "flex" }}>
-              <Typography style={{ marginRight: 10 }}>
+            <div
+              style={{
+                marginLeft: "auto",
+                display: "flex",
+                alignItems: "center"
+              }}
+            >
+              <div className={classes.search}>
+                <div className={classes.searchIcon}>
+                  <Search />
+                </div>
+                <InputBase
+                  placeholder="Search…"
+                  classes={{
+                    root: classes.inputRoot,
+                    input: classes.inputInput
+                  }}
+                  inputProps={{ "aria-label": "search" }}
+                />
+              </div>
+              <Typography style={{ height: "100%", marginRight: 10 }}>
                 {this.props.user.name}
               </Typography>
               <Person />
@@ -41,4 +107,4 @@ class AppHeader extends React.Component {
   }
 }
 
-export default withRouter(AppHeader);
+export default withStyles(classes)(withRouter(AppHeader));

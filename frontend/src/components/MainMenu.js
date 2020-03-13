@@ -11,16 +11,16 @@ const classes = theme => ({
   },
   row: {
     display: "flex",
-    margin: 10,
+    margin: "1%",
     width: "100%",
     alignItems: "center",
     justifyContent: "space-between"
   },
   item: {
     width: "100%",
-    minWidth: 200,
-    marginLeft: 10,
-    marginRight: 10,
+    // minWidth: 200,
+    marginLeft: "1%",
+    marginRight: "1%",
     display: "flex"
   },
   img: {
