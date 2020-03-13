@@ -17,12 +17,12 @@ class login extends request {
           password: await auth.cryptPassword(req.body.password)
         }
         db.checkUser(user).then(result => {
-          const token = auth.generateToken({
-            name: result.name,
-            role: result.role,
-            id: result.id
-          });
           if (result) {
+            const token = auth.generateToken({
+              name: result.name,
+              role: result.role,
+              id: result.id
+            });
             res.cookie('token', token, { httpOnly: true }).send({
               status: "ok",
               user: {

@@ -9,7 +9,6 @@ import {
 import { login } from "../api/index";
 import { withSnackbar } from "notistack";
 import { withRouter } from "react-router-dom";
-import Loading from "./Loading";
 
 const classes = theme => ({
   login: {
@@ -24,9 +23,7 @@ const classes = theme => ({
   }
 });
 class Login extends React.Component {
-  state = {
-    loading: false
-  };
+  state = {};
 
   onKeyDown = event => {
     // 'keypress' event misbehaves on mobile so we track 'Enter' key via 'keydown' event
@@ -50,9 +47,9 @@ class Login extends React.Component {
       name: document.getElementById("login")?.value,
       password: document.getElementById("password")?.value
     };
-    this.setState({ loading: true });
+    this.props.showLoadingScreen(true);
     const res = await login(JSON.stringify(requestBody));
-    this.setState({ loading: false });
+    this.props.showLoadingScreen(false);
     if (res.status === "ok") {
       this.props.enqueueSnackbar("Logged in", {
         variant: "success"
@@ -66,9 +63,6 @@ class Login extends React.Component {
     }
   };
   render() {
-    if (this.state.loading) {
-      return <Loading></Loading>;
-    }
     return (
       <div className={this.props.classes.login}>
         <Paper style={{ padding: 40 }} elevation={2}>

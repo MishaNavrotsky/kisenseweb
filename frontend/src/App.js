@@ -7,9 +7,11 @@ import Header from "./components/Header";
 import { SnackbarProvider } from "notistack";
 import { withStyles, ThemeProvider, createMuiTheme } from "@material-ui/core";
 import { connect } from "react-redux";
-import { actionLogin } from "./actions";
+import { actionLogin, actionShowLoadngScreen } from "./actions";
 import { getUserByToken } from "./api";
 import { blue } from "@material-ui/core/colors/";
+import Loading from "./components/Loading";
+import IndexPage from "./components/IndexPage";
 
 const theme = createMuiTheme({
   palette: {
@@ -37,18 +39,32 @@ class App extends React.Component {
           <SnackbarProvider maxSnack={3} dense preventDuplicate>
             <BrowserRouter>
               <Header user={this.props.user} />
-              <Switch>
-                <Route path="/users" exact>
-                  <Users></Users>
-                </Route>
-                <Route path="/register" exact>
-                  <Register setUser={this.props.setUser}></Register>
-                </Route>
-                <Route path="/login" exact>
-                  <Login setUser={this.props.setUser}></Login>
-                </Route>
-                <Route path="/*">Loh loh loh</Route>
-              </Switch>
+              {this.props.loadingScreen ? <Loading></Loading> : null}
+              <div style={this.props.loadingScreen ? { display: "none" } : {}}>
+                <Switch>
+                  <Route path="/users" exact>
+                    <Users
+                      showLoadingScreen={this.props.showLoadingScreen}
+                    ></Users>
+                  </Route>
+                  <Route path="/register" exact>
+                    <Register
+                      showLoadingScreen={this.props.showLoadingScreen}
+                      setUser={this.props.setUser}
+                    ></Register>
+                  </Route>
+                  <Route path="/login" exact>
+                    <Login
+                      showLoadingScreen={this.props.showLoadingScreen}
+                      setUser={this.props.setUser}
+                    ></Login>
+                  </Route>
+                  <Route path="/">
+                    <IndexPage />
+                  </Route>
+                  <Route path="/*">Loh loh loh</Route>
+                </Switch>
+              </div>
             </BrowserRouter>
           </SnackbarProvider>
         </div>
@@ -59,12 +75,14 @@ class App extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.api.user
+    user: state.api.user,
+    loadingScreen: state.api.loadingScreen
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  setUser: user => dispatch(actionLogin(user))
+  setUser: user => dispatch(actionLogin(user)),
+  showLoadingScreen: show => dispatch(actionShowLoadngScreen(show))
 });
 
 export default connect(

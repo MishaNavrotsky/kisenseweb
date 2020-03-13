@@ -9,7 +9,6 @@ import {
 import { createUser } from "../api/index";
 import { withSnackbar } from "notistack";
 import { withRouter } from "react-router-dom";
-import Loading from "./Loading";
 
 const classes = theme => ({
   register: {
@@ -24,9 +23,7 @@ const classes = theme => ({
   }
 });
 class Register extends React.Component {
-  state = {
-    loading: false
-  };
+  state = {};
   onKeyDown = event => {
     // 'keypress' event misbehaves on mobile so we track 'Enter' key via 'keydown' event
     if (event.key === "Enter") {
@@ -50,9 +47,9 @@ class Register extends React.Component {
       password: document.getElementById("password")?.value,
       email: document.getElementById("email")?.value
     };
-    this.setState({ loading: true });
+    this.props.showLoadingScreen(true);
     const res = await createUser(JSON.stringify(requestBody));
-    this.setState({ loading: false });
+    this.props.showLoadingScreen(false);
     if (res.status === "ok") {
       this.props.enqueueSnackbar("Registered", {
         variant: "success"
@@ -73,7 +70,6 @@ class Register extends React.Component {
   };
 
   render() {
-    if (this.state.loading) return <Loading></Loading>;
     return (
       <div className={this.props.classes.register}>
         <Paper style={{ padding: 40 }} elevation={2}>
