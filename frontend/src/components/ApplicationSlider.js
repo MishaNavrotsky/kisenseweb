@@ -2,6 +2,7 @@ import React from "react";
 import { withStyles } from "@material-ui/core";
 import { ArrowBack, ArrowForward } from "@material-ui/icons";
 import Slider from "react-slick";
+import _ from "lodash";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 const classes = theme => ({
@@ -72,6 +73,11 @@ class ApplicationsSlider extends React.Component {
     smallSlides: [],
     handleSlideClick: () => {}
   };
+
+  shouldComponentUpdate(nextProps) {
+    if (!_.isEqual(nextProps, this.props)) return true;
+    return false;
+  }
 
   handleSlideClick = slide => {
     this.smallSlider.slickGoTo(slide.id);
