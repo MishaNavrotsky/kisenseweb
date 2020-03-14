@@ -12,10 +12,7 @@ class login extends request {
       middleware: [bodyParser.json()],
       path: "/login",
       function: async (req, res) => {
-        const user = {
-          ...req.body,
-          password: await auth.cryptPassword(req.body.password)
-        }
+        const user = req.body
         db.checkUser(user).then(result => {
           if (result) {
             const token = auth.generateToken({

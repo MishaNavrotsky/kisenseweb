@@ -12,7 +12,7 @@ class register extends request {
       middleware: [bodyParser.json()],
       path: "/register",
       function: async (req, res) => {
-        const user = { ...req.body, password: await auth.cryptPassword(req.body.password) };
+        const user = req.body;
         db.saveUser(user).then(result => {
           const token = auth.generateToken({
             name: result.name,

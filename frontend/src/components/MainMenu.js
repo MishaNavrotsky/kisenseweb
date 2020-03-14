@@ -1,5 +1,5 @@
 import React from "react";
-import { Paper, Grid, withStyles } from "@material-ui/core";
+import { withStyles } from "@material-ui/core";
 
 const classes = theme => ({
   root: {

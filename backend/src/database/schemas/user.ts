@@ -1,4 +1,5 @@
 import mongoose from "mongoose"
+import auth from "../../authentication"
 import { Roles } from "../../const"
 
 const userScheme = new mongoose.Schema({
@@ -67,6 +68,20 @@ export interface IUser extends mongoose.Document {
   createDate: Date,
   lastActiveDate: Date
 }
+
+userScheme.pre("save", async function (next) {
+  const user = this as any;
+  user.password = await auth.cryptPassword(user.password);
+  return next()
+})
+
+userScheme.pre('findOne', async function (next) {
+  const user = (this as any)._conditions as IUser;
+  if (user.password && user.name) {
+    user.password = await auth.cryptPassword(user.password);
+  }
+  return next();
+})
 
 const User = mongoose.model<IUser>("User", userScheme);
 

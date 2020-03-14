@@ -46,6 +46,9 @@ const classes = theme => ({
     [theme.breakpoints.up("md")]: {
       width: 200
     }
+  },
+  personIcon: {
+    cursor: "pointer"
   }
 });
 class AppHeader extends React.Component {
@@ -63,6 +66,9 @@ class AppHeader extends React.Component {
   };
   handleIndex = () => {
     this.props.history.push("/");
+  };
+  handleProfile = () => {
+    this.props.history.push("/profile");
   };
 
   render() {
@@ -98,7 +104,10 @@ class AppHeader extends React.Component {
               <Typography style={{ height: "100%", marginRight: 10 }}>
                 {this.props.user.name}
               </Typography>
-              <Person />
+              <Person
+                onClick={this.handleProfile}
+                className={classes.personIcon}
+              />
             </div>
           ) : null}
         </Toolbar>
