@@ -70,6 +70,9 @@ class AppHeader extends React.Component {
   handleProfile = () => {
     this.props.history.push("/profile");
   };
+  handleApplications = () => {
+    this.props.history.push("/applications");
+  };
 
   render() {
     const { classes } = this.props;
@@ -79,6 +82,7 @@ class AppHeader extends React.Component {
           <Button onClick={this.handleLogin}>Login</Button>
           <Button onClick={this.handleRegister}>Register</Button>
           <Button onClick={this.handleUsers}>Users</Button>
+          <Button onClick={this.handleApplications}>Applications</Button>
           <Button onClick={this.handleIndex}>Index</Button>
           {this.props.user.name ? (
             <div

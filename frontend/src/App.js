@@ -13,6 +13,8 @@ import { blue } from "@material-ui/core/colors/";
 import Loading from "./components/Loading";
 import IndexPage from "./components/IndexPage";
 import Profile from "./components/Profile";
+import ApplicationsPage from "./components/ApplicationsPage";
+
 const theme = createMuiTheme({
   palette: {
     primary: blue
@@ -35,38 +37,39 @@ class App extends React.Component {
   render() {
     return (
       <ThemeProvider theme={theme}>
-        <div>
-          <SnackbarProvider maxSnack={3} dense preventDuplicate>
-            <BrowserRouter>
-              <Header user={this.props.user} />
-              <Loading open={this.props.loadingScreen} />
-              <Switch>
-                <Route path="/users" exact>
-                  <Users showLoadingScreen={this.props.showLoadingScreen} />
-                </Route>
-                <Route path="/register" exact>
-                  <Register
-                    showLoadingScreen={this.props.showLoadingScreen}
-                    setUser={this.props.setUser}
-                  />
-                </Route>
-                <Route path="/login" exact>
-                  <Login
-                    showLoadingScreen={this.props.showLoadingScreen}
-                    setUser={this.props.setUser}
-                  />
-                </Route>
-                <Route path="/profile">
-                  <Profile />
-                </Route>
-                <Route path="/">
-                  <IndexPage />
-                </Route>
-                <Route path="/*">Loh loh loh</Route>
-              </Switch>
-            </BrowserRouter>
-          </SnackbarProvider>
-        </div>
+        <SnackbarProvider maxSnack={3} dense preventDuplicate>
+          <BrowserRouter>
+            <Header user={this.props.user} />
+            <Loading open={this.props.loadingScreen} />
+            <Switch>
+              <Route path="/users" exact>
+                <Users showLoadingScreen={this.props.showLoadingScreen} />
+              </Route>
+              <Route path="/register" exact>
+                <Register
+                  showLoadingScreen={this.props.showLoadingScreen}
+                  setUser={this.props.setUser}
+                />
+              </Route>
+              <Route path="/login" exact>
+                <Login
+                  showLoadingScreen={this.props.showLoadingScreen}
+                  setUser={this.props.setUser}
+                />
+              </Route>
+              <Route path="/profile">
+                <Profile />
+              </Route>
+              <Route path="/applications">
+                <ApplicationsPage />
+              </Route>
+              <Route path="/">
+                <IndexPage />
+              </Route>
+              <Route path="/*">Loh loh loh</Route>
+            </Switch>
+          </BrowserRouter>
+        </SnackbarProvider>
       </ThemeProvider>
     );
   }
