@@ -35,9 +35,7 @@ const mapStateToProps = state => {
     loadingScreen: state.api.loadingScreen || false
   };
 };
-
 const mapDispatchToProps = dispatch => ({});
-
 export default connect(
   mapStateToProps,
   mapDispatchToProps
