@@ -29,13 +29,16 @@ class Profile extends React.Component {
     );
   }
 }
+
 const mapStateToProps = state => {
   return {
     user: state.api.user || {},
     loadingScreen: state.api.loadingScreen || false
   };
 };
+
 const mapDispatchToProps = dispatch => ({});
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps
