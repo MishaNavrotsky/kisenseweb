@@ -32,7 +32,7 @@ class Profile extends React.Component {
 const mapStateToProps = state => {
   return {
     user: state.api.user || {},
-    loadingScreen: state.api.loadingScreen
+    loadingScreen: state.api.loadingScreen || false
   };
 };
 
