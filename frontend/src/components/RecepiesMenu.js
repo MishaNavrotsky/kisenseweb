@@ -21,7 +21,8 @@ const classes = theme => ({
     // minWidth: 200,
     marginLeft: "1%",
     marginRight: "1%",
-    display: "flex"
+    display: "flex",
+    maxWidth: 300
   },
   img: {
     height: "auto",
@@ -44,9 +45,9 @@ function Item({ className, children }) {
   return <div className={className}>{children}</div>;
 }
 
-class MainMenu extends React.Component {
+class RecepiesMenu extends React.Component {
   render() {
-    const { classes, items } = this.props;
+    const { classes } = this.props;
 
     return (
       <div className={classes.root}>
@@ -72,22 +73,6 @@ class MainMenu extends React.Component {
               src="http://corpthemes.com/html/isuzu/images/portfolio/simple/2.jpg"
             ></img>
           </Item>
-        </Row>
-        <Row className={classes.row} itemsClassName={classes.item}>
-          <Item>
-            <img
-              className={classes.img}
-              alt="err"
-              src="http://corpthemes.com/html/isuzu/images/portfolio/simple/2.jpg"
-            ></img>
-          </Item>
-          <Item>
-            <img
-              className={classes.img}
-              alt="err"
-              src="http://corpthemes.com/html/isuzu/images/portfolio/simple/2.jpg"
-            ></img>
-          </Item>
           <Item>
             <img
               className={classes.img}
@@ -97,6 +82,13 @@ class MainMenu extends React.Component {
           </Item>
         </Row>
         <Row className={classes.row} itemsClassName={classes.item}>
+          <Item>
+            <img
+              className={classes.img}
+              alt="err"
+              src="http://corpthemes.com/html/isuzu/images/portfolio/simple/2.jpg"
+            ></img>
+          </Item>
           <Item>
             <img
               className={classes.img}
@@ -124,4 +116,4 @@ class MainMenu extends React.Component {
   }
 }
 
-export default withStyles(classes)(MainMenu);
+export default withStyles(classes)(RecepiesMenu);

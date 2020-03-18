@@ -8,6 +8,7 @@ export default (state = defaultApiState, action = {}) => {
   console.log(action);
   switch (action.type) {
     case USER_LOGIN:
+      if (action.payload?.status === "error") return { ...state };
       return {
         ...state,
         user: action.payload

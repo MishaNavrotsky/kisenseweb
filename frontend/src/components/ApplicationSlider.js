@@ -12,7 +12,11 @@ const classes = theme => ({
   image: {
     height: "auto",
     width: "95%",
-    margin: 10
+    maxWidth: 800,
+    maxHeight: 480,
+    margin: "auto",
+    marginTop: 10,
+    marginBottom: 10
   },
   overlay: {
     position: "absolute",
@@ -67,12 +71,44 @@ function Slide({ slide, classes, onClick, id }) {
     </div>
   );
 }
+
+function imageLoaded(src, alt = "") {
+  return new Promise(function(resolve, rejected) {
+    const image = document.createElement("img");
+
+    image.setAttribute("alt", alt);
+    image.setAttribute("src", src);
+
+    image.addEventListener("load", function() {
+      resolve(image);
+    });
+
+    image.addEventListener("error", rejected);
+  });
+}
 class ApplicationsSlider extends React.Component {
   static defaultProps = {
-    bigSlides: [],
-    smallSlides: [],
+    slides: [],
     handleSlideClick: () => {}
   };
+
+  async UNSAFE_componentWillMount() {
+    const reflect = p =>
+      p.then(
+        v => ({ v, status: "fulfilled" }),
+        e => ({ e, status: "rejected" })
+      );
+    this.props.showLoadingScreen(true);
+    const promises = [];
+    for (let i = 0; i < this.props.slides.length; i++) {
+      promises.push(
+        imageLoaded(this.props.slides[i].bigSlide.imgUrl),
+        imageLoaded(this.props.slides[i].smallSlide.imgUrl)
+      );
+    }
+    await Promise.all(promises.map(reflect));
+    this.props.showLoadingScreen(false);
+  }
 
   shouldComponentUpdate(nextProps) {
     if (!_.isEqual(nextProps, this.props)) return true;
