@@ -6,27 +6,26 @@ const classes = theme => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    marginLeft: "10%",
-    marginRight: "10%"
+    marginLeft: "2%",
+    marginRight: "2%",
+    marginBottom: 10
   },
   row: {
     display: "flex",
-    margin: "1%",
+    flexWrap: "wrap",
     width: "100%",
     alignItems: "center",
-    justifyContent: "space-between"
+    justifyContent: "center"
   },
   item: {
-    width: "100%",
-    // minWidth: 200,
-    marginLeft: "1%",
-    marginRight: "1%",
+    marginLeft: 5,
+    marginRight: 5,
+    marginTop: 10,
     display: "flex"
   },
   img: {
-    height: "auto",
-    width: "100%",
-    margin: "auto"
+    width: 350,
+    // margin: "auto" 
   }
 });
 
