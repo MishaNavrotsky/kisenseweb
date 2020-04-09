@@ -1,6 +1,8 @@
 import config from "../config"
 import mongoose from "mongoose"
 import User, { IUser } from "./schemas/user"
+import Application, { IApplication } from "./schemas/application"
+
 class database {
   connectionString: string = null;
   db: mongoose.Mongoose = null;
@@ -18,6 +20,7 @@ class database {
       });
       // await this.db.connection.db.dropDatabase();
       await User.init();
+      await Application.init();
     } catch (e) {
       throw "DB ERROR: " + e.message;
     }

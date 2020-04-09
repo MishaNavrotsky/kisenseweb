@@ -18,16 +18,17 @@ const classes = theme => ({
     marginLeft: 5,
     marginRight: 5,
     marginTop: 10,
-    display: "flex"
+    display: "flex",
+    cursor: "pointer"
   },
   img: {
     margin: "auto",
     transition: theme.transitions.create('width'),
     "@media ( max-width: 700px)": {
-        width: 200,
+      width: 200,
     },
     "@media ( min-width: 701px)": {
-        width: 250,
+      width: 250,
     }
   },
   itemGroup: {
@@ -38,6 +39,11 @@ const classes = theme => ({
 });
 
 class RecepiesMenu extends React.Component {
+  handleSelect = (event, n) => {
+    this.props.onSelect(event)
+    console.log(n)
+  }
+
   render() {
     const { classes } = this.props;
 
@@ -45,14 +51,14 @@ class RecepiesMenu extends React.Component {
       <div className={classes.root}>
         <div className={classes.row}>
           <div className={classes.itemGroup}>
-            <div className={classes.item}>
+            <div className={classes.item} onClick={(event) => this.handleSelect(event, 0)}>
               <img
                 className={classes.img}
                 alt="err"
                 src="http://corpthemes.com/html/isuzu/images/portfolio/simple/2.jpg"
               ></img>
             </div>
-            <div className={classes.item}>
+            <div className={classes.item} onClick={(event) => this.handleSelect(event, 1)}>
               <img
                 className={classes.img}
                 alt="err"
@@ -61,14 +67,14 @@ class RecepiesMenu extends React.Component {
             </div>
           </div>
           <div className={classes.itemGroup}>
-            <div className={classes.item}>
+          <div className={classes.item} onClick={(event) => this.handleSelect(event, 2)}>
               <img
                 className={classes.img}
                 alt="err"
                 src="http://corpthemes.com/html/isuzu/images/portfolio/simple/2.jpg"
               ></img>
             </div>
-            <div className={classes.item}>
+            <div className={classes.item} onClick={(event) => this.handleSelect(event, 3)}>
               <img
                 className={classes.img}
                 alt="err"
@@ -79,14 +85,14 @@ class RecepiesMenu extends React.Component {
         </div>
         <div className={classes.row}>
           <div className={classes.itemGroup}>
-            <div className={classes.item}>
+          <div className={classes.item} onClick={(event) => this.handleSelect(event, 4)}>
               <img
                 className={classes.img}
                 alt="err"
                 src="http://corpthemes.com/html/isuzu/images/portfolio/simple/2.jpg"
               ></img>
             </div>
-            <div className={classes.item}>
+            <div className={classes.item} onClick={(event) => this.handleSelect(event, 5)}>
               <img
                 className={classes.img}
                 alt="err"
@@ -95,14 +101,14 @@ class RecepiesMenu extends React.Component {
             </div>
           </div>
           <div className={classes.itemGroup}>
-            <div className={classes.item}>
+          <div className={classes.item} onClick={(event) => this.handleSelect(event, 6)}>
               <img
                 className={classes.img}
                 alt="err"
                 src="http://corpthemes.com/html/isuzu/images/portfolio/simple/2.jpg"
               ></img>
             </div>
-            <div className={classes.item}>
+            <div className={classes.item} onClick={(event) => this.handleSelect(event, 7)}>
               <img
                 className={classes.img}
                 alt="err"

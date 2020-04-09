@@ -44,3 +44,15 @@ export async function getUserByToken() {
   });
   return await response.json();
 }
+
+export async function getApplications() {
+  const response = await fetch(URL_API + "/applications", {
+    method: "GET",
+    credentials: "include",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    }
+  });
+  return await response.json();
+}

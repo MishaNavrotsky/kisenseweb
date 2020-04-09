@@ -32,6 +32,9 @@ function generateImgUrl() {
   return `https://i.picsum.photos/id/${~~(Math.random() * 100)}/800/480.jpg`;
 }
 class RecepiesPage extends React.Component {
+  handleRecepiesMenuSelect(event){
+    console.log(event.currentTarget)
+  }
   render() {
     const { classes } = this.props;
     return (
@@ -51,7 +54,7 @@ class RecepiesPage extends React.Component {
         <div className={classes.paperContainer}>
           <Paper><img src={generateImgUrl()} className={classes.paperImage}></img></Paper>
         </div>
-        <RecepiesMenu></RecepiesMenu>
+        <RecepiesMenu onSelect={this.handleRecepiesMenuSelect}></RecepiesMenu>
       </div>
     );
   }

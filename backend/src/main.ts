@@ -9,4 +9,5 @@ console.log(new Date());
 db.init().then(() => {
   const server = new app()
   server.init(PORT);
+  console.log("Server is listening on port:" + PORT)
 });

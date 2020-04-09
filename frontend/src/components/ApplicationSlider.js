@@ -60,13 +60,13 @@ function SliderButtonForward({ children, onClick, className }) {
 }
 
 function Slide({ slide, classes, onClick, id }) {
-  const { imgUrl, data, label } = slide;
+  const { imageUrl, data, label } = slide;
   return (
     <div
       className={classes.container}
       onClick={() => onClick({ ...slide, id })}
     >
-      <img alt="err" className={classes.image} src={imgUrl}></img>
+      <img alt="err" className={classes.image} src={imageUrl}></img>
       <div className={classes.overlay}>{label}</div>
     </div>
   );
@@ -92,13 +92,12 @@ class ApplicationsSlider extends React.Component {
     handleSlideClick: () => {}
   };
 
-  async UNSAFE_componentWillMount() {
+  async componentDidMount() {
     const reflect = p =>
       p.then(
         v => ({ v, status: "fulfilled" }),
         e => ({ e, status: "rejected" })
       );
-    this.props.showLoadingScreen(true);
     const promises = [];
     for (let i = 0; i < this.props.slides.length; i++) {
       promises.push(
@@ -107,7 +106,6 @@ class ApplicationsSlider extends React.Component {
       );
     }
     await Promise.all(promises.map(reflect));
-    this.props.showLoadingScreen(false);
   }
 
   shouldComponentUpdate(nextProps) {
@@ -123,6 +121,7 @@ class ApplicationsSlider extends React.Component {
 
   render() {
     const { classes } = this.props;
+    this.props.showLoadingScreen(false);
     return (
       <div style={{ marginLeft: 45, marginRight: 45 }}>
         <Slider
