@@ -56,3 +56,16 @@ export async function getApplications() {
   });
   return await response.json();
 }
+
+export async function getRecepies(tags) {
+  const response = await fetch(URL_API + "/recepies?tags="+(tags || []).join(','), {
+    method: "GET",
+    credentials: "include",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    }
+  });
+  return await response.json();
+}
+
