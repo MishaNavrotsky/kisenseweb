@@ -23,7 +23,7 @@ const classes = theme => ({
 class ApplicationDetails extends React.Component {
   render() {
     const { details, classes, user } = this.props;
-    console.log(user);
+
     return (
       <div className={classes.container}>
         <Paper>

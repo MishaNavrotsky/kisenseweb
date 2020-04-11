@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { withStyles, Paper, Button } from "@material-ui/core";
+import { withStyles, Paper, Button, List, ListItem, Typography } from "@material-ui/core";
 import { getRecepies } from "../api/index"
 import RecepiesMenu from "./RecepiesMenu";
 import { blue } from "@material-ui/core/colors";
@@ -22,11 +22,18 @@ const classes = theme => ({
   paperContainer: {
     display: "flex",
     justifyContent: "center",
+    marginLeft: 20,
+    marginRight: 20
   },
   paperImage: {
-    width: "100%",
+    width: "40%",
     height: "auto",
-    margin: "auto"
+  },
+  descriptionContainer: {
+    display: 'flex',
+  },
+  descriptionList: {
+    marginLeft: 10
   }
 });
 
@@ -51,29 +58,27 @@ class RecepiesPage extends React.Component {
   state = {
     recepies: [],
     bigImageUrl: generateImgUrl(),
-    tags: ['Kosher', 'Low callories', 'Fiteness', 'Vegetarian', 'Raw food', 'vsyakie']
+    tags: ['Kosher', 'Low callories', 'Fiteness', 'Vegetarian', 'Raw food', 'vsyakie'],
+    recepie: null
   }
 
   async componentDidMount() {
     const recepies = (await getRecepies()).data;
-    recepies.forEach(recepie => {
-      recepie.bigSlide.imageUrl = generateImgUrl();
-      recepie.smallSlide.imageUrl = recepie.bigSlide.imageUrl;
-    })
     this.setState({ recepies })
   }
 
-  handleRecepiesMenuSelect = (event, n) => {
-    const recepie = this.state.recepies.find(recepie => recepie.name === n);
-    this.setState({ bigImageUrl: recepie.bigSlide.imageUrl })
+  handleRecepiesMenuSelect = (event, id) => {
+    const recepie = this.state.recepies.find(recepie => recepie._id === id);
+    this.setState({ recepie })
+    console.log(recepie);
   }
 
   tags = {};
   handleTagSelect = async (tag, ev) => {
     this.tags[tag] = !this.tags[tag]
     const selectedTags = [];
-    for(const [tag,status] of Object.entries(this.tags)) {
-      if(status) selectedTags.push(tag);
+    for (const [tag, status] of Object.entries(this.tags)) {
+      if (status) selectedTags.push(tag);
     }
     const recepies = await getRecepies(selectedTags);
   }
@@ -86,7 +91,17 @@ class RecepiesPage extends React.Component {
           {this.state.tags.map((tag) => (<ToggleButton onClick={(ev) => this.handleTagSelect(tag, ev)} key={tag} >{tag}</ToggleButton>))}
         </div>
         <div className={classes.paperContainer}>
-          <Paper><img src={this.state.bigImageUrl} className={classes.paperImage}></img></Paper>
+          {this.state.recepie && <Paper className={classes.descriptionContainer}>
+            <img src={this.state.recepie?.bigSlide?.imageUrl} className={classes.paperImage}></img>
+            <div className={classes.descriptionList}>
+              <Typography>Recepie Name: {this.state.recepie.name}</Typography>
+              <Typography>Cooking Time: {this.state.recepie.timeOfCooking}</Typography>
+              <Typography>Description: {this.state.recepie.description}</Typography>
+              <List component="ol" dense={true}>
+                {this.state.recepie.cookingSteps.map((step, i) => (<ListItem>{i + 1}. {step}</ListItem>))}
+              </List>
+            </div>
+          </Paper>}
         </div>
         <RecepiesMenu onSelect={this.handleRecepiesMenuSelect} data={this.state.recepies}></RecepiesMenu>
       </div>
