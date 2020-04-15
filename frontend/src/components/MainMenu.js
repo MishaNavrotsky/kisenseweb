@@ -26,6 +26,16 @@ const classes = theme => ({
   img: {
     width: 350,
     // margin: "auto" 
+  },
+  imageContainer: {
+    position: "relative",
+    textAlign: "center"
+  },
+  centeredText: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)"
   }
 });
 
@@ -51,11 +61,16 @@ class MainMenu extends React.Component {
       <div className={classes.root}>
         <Row className={classes.row} itemsClassName={classes.item}>
           <Item>
-            <img
-              className={classes.img}
-              alt="err"
-              src="http://corpthemes.com/html/isuzu/images/portfolio/simple/2.jpg"
-            ></img>
+            <div className={classes.imageContainer}>
+              <img
+                className={classes.img}
+                alt="err"
+                src="http://corpthemes.com/html/isuzu/images/portfolio/simple/2.jpg"
+              ></img>
+              <div className={classes.centeredText}>
+                Text
+            </div>
+            </div>
           </Item>
           <Item>
             <img
