@@ -44,7 +44,7 @@ class Login extends React.Component {
 
   handleSend = async () => {
     const requestBody = {
-      name: document.getElementById("login")?.value,
+      email: document.getElementById("login")?.value,
       password: document.getElementById("password")?.value
     };
     this.props.showLoadingScreen(true);
@@ -67,7 +67,7 @@ class Login extends React.Component {
       <div className={this.props.classes.login}>
         <Paper style={{ padding: 40 }} elevation={2}>
           <div>
-            <Typography>Login:</Typography>
+            <Typography>Email:</Typography>
             <Input type="login" id="login"></Input>
           </div>
           <div className={this.props.classes.row}>

@@ -1,7 +1,7 @@
-import { USER_LOGIN, LOADING_SCREEN } from "../actions/index";
+import { USER_LOGIN, LOADING_SCREEN, GAME_URL } from "../actions/index";
 
 const defaultApiState = {
-  loadingScreen: false
+  loadingScreen: false,
 };
 
 export default (state = defaultApiState, action = {}) => {
@@ -11,12 +11,17 @@ export default (state = defaultApiState, action = {}) => {
       if (action.payload?.status === "error") return { ...state };
       return {
         ...state,
-        user: action.payload
+        user: action.payload,
       };
     case LOADING_SCREEN:
       return {
         ...state,
-        loadingScreen: action.payload
+        loadingScreen: action.payload,
+      };
+    case GAME_URL:
+      return {
+        ...state,
+        gameUrl: action.payload,
       };
     default:
       return state;

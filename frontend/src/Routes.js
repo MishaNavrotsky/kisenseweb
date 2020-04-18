@@ -13,12 +13,13 @@ import IndexPage from "./components/IndexPage";
 import Profile from "./components/Profile";
 import ApplicationsPage from "./components/ApplicationsPage";
 import RecepiesPage from "./components/RecepiesPage";
+import GamesPage from "./components/GamesPage";
 
 const styles = () => {
   return {
     app: {
-      margin: 8
-    }
+      margin: 8,
+    },
   };
 };
 
@@ -57,11 +58,20 @@ class Routes extends React.Component {
               user={this.props.user}
             />
           </Route>
+          <Route path="/games" exact>
+            <GamesPage
+              showLoadingScreen={this.props.showLoadingScreen}
+              user={this.props.user}
+            />
+          </Route>
           <Route path="/recepies" exact>
             <RecepiesPage />
           </Route>
           <Route path="/" exact>
             <IndexPage />
+          </Route>
+          <Route path="/game/*" exact>
+            <iframe src={this.props.gameUrl}>qfwef</iframe>
           </Route>
           <Route path="/*">Loh loh loh</Route>
         </Switch>
@@ -70,16 +80,17 @@ class Routes extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     user: state.api.user,
-    loadingScreen: state.api.loadingScreen
+    loadingScreen: state.api.loadingScreen,
+    gameUrl: state.api.gameUrl,
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  setUser: user => dispatch(actionLogin(user)),
-  showLoadingScreen: show => dispatch(actionShowLoadngScreen(show))
+const mapDispatchToProps = (dispatch) => ({
+  setUser: (user) => dispatch(actionLogin(user)),
+  showLoadingScreen: (show) => dispatch(actionShowLoadngScreen(show)),
 });
 
 export default connect(

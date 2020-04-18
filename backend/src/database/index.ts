@@ -2,7 +2,9 @@ import config from "../config"
 import mongoose from "mongoose"
 import User, { IUser } from "./schemas/user"
 import Application, { IApplication } from "./schemas/application"
-import Recepie, {IRecepie} from "./schemas/recepie"
+import Recepie, { IRecepie } from "./schemas/recepie"
+import Game, { IGame } from "./schemas/game"
+
 
 class database {
   connectionString: string = null;
@@ -23,6 +25,25 @@ class database {
       await User.init();
       await Application.init();
       await Recepie.init();
+      await Game.init();
+
+      const game = {
+        "bigSlide": {
+          "imageUrl": "https://i.picsum.photos/id/53/800/480.jpg",
+          "label": "21"
+        },
+        "smallSlide": {
+          "imageUrl": "https://i.picsum.photos/id/59/800/480.jpg",
+          "label": "1"
+        },
+        "data": {
+          "name": "game 1",
+          "text": "super game 1"
+        },
+        downloadUrl: "gerger",
+        playUrl: "test"
+      }
+      Game.insertMany([game]);
     } catch (e) {
       throw "DB ERROR: " + e.message;
     }

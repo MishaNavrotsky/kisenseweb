@@ -13,6 +13,7 @@ class login extends request {
       path: "/login",
       function: async (req, res) => {
         const user = req.body
+        user.password = await auth.cryptPassword(user.password);
         db.checkUser(user).then(result => {
           if (result) {
             const token = auth.generateToken({

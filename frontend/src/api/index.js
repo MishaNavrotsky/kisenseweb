@@ -2,7 +2,7 @@ export const URL_API = "http://localhost:5000";
 
 export async function getUsers() {
   const response = await fetch(URL_API + "/users/" + window.location.search, {
-    credentials: "include"
+    credentials: "include",
   });
   return await response.json();
 }
@@ -13,9 +13,9 @@ export async function createUser(body) {
     credentials: "include",
     headers: {
       Accept: "application/json",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
-    body: body
+    body: body,
   });
   return await response.json();
 }
@@ -26,9 +26,9 @@ export async function login(body) {
     credentials: "include",
     headers: {
       Accept: "application/json",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
-    body: body
+    body: body,
   });
   return await response.json();
 }
@@ -39,8 +39,8 @@ export async function getUserByToken() {
     credentials: "include",
     headers: {
       Accept: "application/json",
-      "Content-Type": "application/json"
-    }
+      "Content-Type": "application/json",
+    },
   });
   return await response.json();
 }
@@ -51,21 +51,35 @@ export async function getApplications() {
     credentials: "include",
     headers: {
       Accept: "application/json",
-      "Content-Type": "application/json"
-    }
+      "Content-Type": "application/json",
+    },
   });
   return await response.json();
 }
 
 export async function getRecepies(tags) {
-  const response = await fetch(URL_API + "/recepies?tags="+(tags || []).join(','), {
+  const response = await fetch(
+    URL_API + "/recepies?tags=" + (tags || []).join(","),
+    {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return await response.json();
+}
+
+export async function getGames() {
+  const response = await fetch(URL_API + "/games", {
     method: "GET",
     credentials: "include",
     headers: {
       Accept: "application/json",
-      "Content-Type": "application/json"
-    }
+      "Content-Type": "application/json",
+    },
   });
   return await response.json();
 }
-

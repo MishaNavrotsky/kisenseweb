@@ -74,7 +74,7 @@ class Register extends React.Component {
       <div className={this.props.classes.register}>
         <Paper style={{ padding: 40 }} elevation={2}>
           <div>
-            <Typography>Login:</Typography>
+            <Typography>Username:</Typography>
             <Input type="login" id="login"></Input>
           </div>
           <div className={this.props.classes.row}>

@@ -2,23 +2,24 @@ import React from "react";
 import { withStyles } from "@material-ui/core";
 import ApplicationSlider from "./ApplicationSlider";
 import ApplicationDetails from "./ApplicationDetails";
-import {getApplications} from "../api"
+import { getApplications } from "../api";
 
-const classes = theme => ({});
+const classes = (theme) => ({});
 
 class ApplicationsPage extends React.Component {
   state = {
     details: {},
-    slides: []
+    slides: [],
   };
-  
+
   async componentDidMount() {
-    this.props.showLoadingScreen(true)
-    const data = (await getApplications()).data
-    this.setState({slides:data})
+    this.props.showLoadingScreen(true);
+    const data = (await getApplications()).data;
+    console.log(data);
+    this.setState({ slides: data });
   }
 
-  handleSlideClick = slide => {
+  handleSlideClick = (slide) => {
     this.setState({ details: slide.data });
   };
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { withStyles } from "@material-ui/core";
+import { withStyles, Typography } from "@material-ui/core";
 
 const classes = theme => ({
   root: {
@@ -33,8 +33,9 @@ const classes = theme => ({
   },
   centeredText: {
     position: "absolute",
-    top: "50%",
+    top: "65%",
     left: "50%",
+    color: "black",
     transform: "translate(-50%, -50%)"
   }
 });
@@ -65,72 +66,112 @@ class MainMenu extends React.Component {
               <img
                 className={classes.img}
                 alt="err"
-                src="http://corpthemes.com/html/isuzu/images/portfolio/simple/2.jpg"
+                src="images\applications_img.png"
               ></img>
-              <div className={classes.centeredText}>
-                Text
-            </div>
+              <Typography className={classes.centeredText}>
+                APPLICATIONS
+            </Typography>
             </div>
           </Item>
           <Item>
-            <img
-              className={classes.img}
-              alt="err"
-              src="http://corpthemes.com/html/isuzu/images/portfolio/simple/2.jpg"
-            ></img>
+          <div className={classes.imageContainer}>
+              <img
+                className={classes.img}
+                alt="err"
+                src="images\recipes_img.png"
+              ></img>
+              <Typography className={classes.centeredText}>
+                RECIPES
+            </Typography>
+            </div>
           </Item>
           <Item>
-            <img
-              className={classes.img}
-              alt="err"
-              src="http://corpthemes.com/html/isuzu/images/portfolio/simple/2.jpg"
-            ></img>
+          <div className={classes.imageContainer}>
+              <img
+                className={classes.img}
+                alt="err"
+                src="images\backgrounds_img.png"
+              ></img>
+              <Typography className={classes.centeredText}>
+                BACKGROUNDS
+            </Typography>
+            </div>
           </Item>
         </Row>
         <Row className={classes.row} itemsClassName={classes.item}>
           <Item>
-            <img
-              className={classes.img}
-              alt="err"
-              src="http://corpthemes.com/html/isuzu/images/portfolio/simple/2.jpg"
-            ></img>
+          <div className={classes.imageContainer}>
+              <img
+                className={classes.img}
+                alt="err"
+                src="images\games_img.png"
+              ></img>
+              <Typography className={classes.centeredText}>
+                GAMES
+            </Typography>
+            </div>
           </Item>
           <Item>
-            <img
-              className={classes.img}
-              alt="err"
-              src="http://corpthemes.com/html/isuzu/images/portfolio/simple/2.jpg"
-            ></img>
+          <div className={classes.imageContainer}>
+              <img
+                className={classes.img}
+                alt="err"
+                src="images\service_img.png"
+              ></img>
+              <Typography className={classes.centeredText}>
+                SERVICE
+            </Typography>
+            </div>
           </Item>
           <Item>
-            <img
-              className={classes.img}
-              alt="err"
-              src="http://corpthemes.com/html/isuzu/images/portfolio/simple/2.jpg"
-            ></img>
+          <div className={classes.imageContainer}>
+              <img
+                className={classes.img}
+                alt="err"
+                src="images\applications_img.png"
+              ></img>
+              <Typography className={classes.centeredText}>
+                GUIDES
+            </Typography>
+            </div>
           </Item>
         </Row>
         <Row className={classes.row} itemsClassName={classes.item}>
           <Item>
-            <img
-              className={classes.img}
-              alt="err"
-              src="http://corpthemes.com/html/isuzu/images/portfolio/simple/2.jpg"
-            ></img>
+          <div className={classes.imageContainer}>
+              <img
+                className={classes.img}
+                alt="err"
+                src="images\applications_img.png"
+              ></img>
+              <Typography className={classes.centeredText}>
+                OTHER
+            </Typography>
+            </div>
           </Item>
           <Item>
-            <img
-              className={classes.img}
-              alt="err"
-              src="http://corpthemes.com/html/isuzu/images/portfolio/simple/2.jpg"
-            ></img>
+          <div className={classes.imageContainer}>
+              <img
+                className={classes.img}
+                alt="err"
+                src="images\applications_img.png"
+              ></img>
+              <Typography className={classes.centeredText}>
+                MENUS
+            </Typography>
+            </div>
           </Item>
           <Item>
-            <img
-              className={classes.img}
-              alt="err"
-              src="http://corpthemes.com/html/isuzu/images/portfolio/simple/2.jpg"
-            ></img>
+          <div className={classes.imageContainer}>
+              <img
+                className={classes.img}
+                alt="err"
+                src="images\applications_img.png"
+              ></img>
+              <Typography className={classes.centeredText}>
+                FOR KISENSE
+            </Typography>
+            </div>
           </Item>
         </Row>
       </div>
