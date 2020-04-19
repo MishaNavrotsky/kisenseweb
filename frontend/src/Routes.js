@@ -71,7 +71,7 @@ class Routes extends React.Component {
             <IndexPage />
           </Route>
           <Route path="/game/*" exact>
-            <iframe src={this.props.gameUrl}>qfwef</iframe>
+            <iframe src={"/games/"+this.props.gameUrl+"/index.html"} height={1080} width={1922}>qfwef</iframe>
           </Route>
           <Route path="/*">Loh loh loh</Route>
         </Switch>

@@ -48,6 +48,10 @@ class GameDetails extends React.Component {
                     color="primary"
                     variant="contained"
                     className={classes.button}
+                    onClick={()=>{
+                      this.props.setGameUrl(details?.gameUrl)
+                      this.props.goTo("/game/"+details?.gameUrl)
+                    }}
                   >
                     Play
                   </Button>
